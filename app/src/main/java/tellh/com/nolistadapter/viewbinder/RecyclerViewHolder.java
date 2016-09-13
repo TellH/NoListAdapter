@@ -1,4 +1,4 @@
-package tellh.com.nolistadapter;
+package tellh.com.nolistadapter.viewbinder;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.method.LinkMovementMethod;

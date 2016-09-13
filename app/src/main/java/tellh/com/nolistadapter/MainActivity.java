@@ -1,19 +1,22 @@
 package tellh.com.nolistadapter;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import tellh.com.nolistadapter.viewbinder.ControlerViewBinder;
+import tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper;
+import tellh.com.nolistadapter.adapter.RecyclerViewAdapter;
 import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FooterLoadMoreAdapterWrapper.OnReachFooterListener {
 
     private RecyclerView list;
     private RecyclerViewAdapter adapter;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             displayList.add(userList.get(i));
         }
         adapter = RecyclerViewAdapter.builder()
+                .displayList(displayList)
                 .addItemType(new UserViewBinder()) //different item type have different ways to bind data to ViewHolder.
                 .addItemType(new ImageItemViewBinder())
                 .addHeader(new ControlerViewBinder(this))
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 .addHeader(new HeaderBinder("I am the second header! 我是板凳"))
                 .addFooter(new FooterBinder("------I am the footer!------"))
                 .addFooter(new FooterBinder("------我是有底线的！-------"))
-                .displayList(displayList)
+                .setLoadMoreFooter(new LoadMoreFooterBinder(), list, this)
                 .build();
         list.setAdapter(adapter);
     }
@@ -69,5 +73,29 @@ public class MainActivity extends AppCompatActivity {
             displayList.add(userList.get(i));
         }
         adapter.refresh(displayList);
+    }
+
+    public void loadMore() {
+        Gson gson = new Gson();
+        Response response = gson.fromJson(Response.responseJsonPage2, Response.class);
+        List<User> userList = response.getItems();
+        List<ViewBinderProvider> displayList = new ArrayList<>();
+        for (int i = 0; i < userList.size(); i++) {
+            displayList.add(new ImageItemViewBinder.ImageItem(userList.get(i).getAvatar_url()));
+            displayList.add(userList.get(i));
+        }
+        FooterLoadMoreAdapterWrapper footerLoadMoreAdapterWrapper = (FooterLoadMoreAdapterWrapper) adapter;
+        footerLoadMoreAdapterWrapper.OnGetData(displayList, FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE);
+    }
+
+    @Override
+    public void onToLoadMore(int curPage) {
+        Toast.makeText(MainActivity.this, "on to load more!", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadMore();
+            }
+        }, 800);
     }
 }

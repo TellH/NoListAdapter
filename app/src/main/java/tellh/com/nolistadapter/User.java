@@ -1,5 +1,6 @@
 package tellh.com.nolistadapter;
 
+import tellh.com.nolistadapter.adapter.IListAdapter;
 import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
 
 /**
@@ -44,7 +45,7 @@ public class User extends ViewBinderProvider {
     }
 
     @Override
-    public int getItemLayoutId() {
+    public int getItemLayoutId(IListAdapter adapter) {
         return R.layout.item_user;
     }
 }

@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import tellh.com.nolistadapter.RecyclerViewAdapter;
 import tellh.com.nolistadapter.viewbinder.ViewBinder;
+import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
 
 /**
  * Created by tlh on 2016/8/4.
  */
-public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter {
+public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implements IListAdapter {
 
     private final RecyclerViewAdapter mAdapter;
     private SparseArrayCompat<ViewBinder> headerBinderPool;
@@ -51,7 +51,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter {
             headerBinderPool = new SparseArrayCompat<>();
             headerBinderList = new ArrayList<>();
         }
-        headerBinderPool.put(headerBinder.getItemLayoutId(), headerBinder);
+        headerBinderPool.put(headerBinder.getItemLayoutId(this), headerBinder);
         headerBinderList.add(headerBinder);
     }
 
@@ -60,20 +60,41 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter {
             footerBinderPool = new SparseArrayCompat<>();
             footerBinderList = new ArrayList<>();
         }
-        footerBinderPool.put(footerBinder.getItemLayoutId(), footerBinder);
+        footerBinderPool.put(footerBinder.getItemLayoutId(this), footerBinder);
         footerBinderList.add(footerBinder);
     }
 
     @Override
     public int getItemViewType(int position) {
         if (isHeaderViewPos(position)) {
-            return headerBinderList.get(position).getItemLayoutId();
+            return headerBinderList.get(position).getItemLayoutId(this);
         } else if (isFooterViewPos(position)) {
             int index = position - getHeadersCount() - mAdapter.getItemCount();
             return footerBinderList.get(index)
-                    .getItemLayoutId();
+                    .getItemLayoutId(this);
         }
         return mAdapter.getItemViewType(position - getHeadersCount());
+    }
+
+    @Override
+    public void swap(int fromPosition, int toPosition) {
+        if (isHeaderViewPos(fromPosition) || isHeaderViewPos(toPosition) || isFooterViewPos(fromPosition) || isFooterViewPos(toPosition))
+            return;
+        mAdapter.swap(fromPosition - getHeadersCount(), toPosition - getHeadersCount());
+    }
+
+    @Override
+    public void delete(int pos) {
+        if (isHeaderViewPos(pos) || isFooterViewPos(pos))
+            return;
+        mAdapter.delete(pos - getHeadersCount());
+    }
+
+    @Override
+    public void add(int pos, ViewBinderProvider item) {
+        if (isHeaderViewPos(pos) || isFooterViewPos(pos))
+            return;
+        mAdapter.add(pos - getHeadersCount(), item);
     }
 
     private RecyclerView.ViewHolder getHeaderViewHolder(int viewType, Context context, ViewGroup parent) {
@@ -82,7 +103,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter {
         ViewBinder viewBinder = headerBinderPool.get(viewType);
         if (viewBinder == null)
             return null;
-        return viewBinder.provideViewHolder(LayoutInflater.from(context).inflate(viewBinder.getItemLayoutId(), parent, false));
+        return viewBinder.provideViewHolder(LayoutInflater.from(context).inflate(viewBinder.getItemLayoutId(this), parent, false));
     }
 
     private RecyclerView.ViewHolder getFooterViewHolder(int viewType, Context context, ViewGroup parent) {
@@ -91,7 +112,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter {
         ViewBinder viewBinder = footerBinderPool.get(viewType);
         if (viewBinder == null)
             return null;
-        return viewBinder.provideViewHolder(LayoutInflater.from(context).inflate(viewBinder.getItemLayoutId(), parent, false));
+        return viewBinder.provideViewHolder(LayoutInflater.from(context).inflate(viewBinder.getItemLayoutId(this), parent, false));
     }
 
     @Override
@@ -110,12 +131,12 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (isHeaderViewPos(position)) {
-            headerBinderList.get(position).bindView(mAdapter, holder, position, null);
+            headerBinderList.get(position).bindView(this, holder, position, null);
             return;
         }
         if (isFooterViewPos(position)) {
             int index = position - getHeadersCount() - mAdapter.getItemCount();
-            footerBinderList.get(index).bindView(mAdapter, holder, position, null);
+            footerBinderList.get(index).bindView(this, holder, position, null);
             return;
         }
         mAdapter.onBindViewHolder(holder, position - getHeadersCount());

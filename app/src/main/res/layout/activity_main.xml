@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:paddingBottom="?attr/actionBarSize"
     android:paddingTop="8dp"
     tools:listitem="@layout/item_user" />
 

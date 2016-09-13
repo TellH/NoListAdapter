@@ -5,12 +5,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import tellh.com.nolistadapter.adapter.IListAdapter;
+import tellh.com.nolistadapter.viewbinder.FooterViewBinder;
 import tellh.com.nolistadapter.viewbinder.ViewBinder;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public class FooterBinder extends ViewBinder<Object, FooterBinder.ViewHolder> {
+public class FooterBinder extends FooterViewBinder<FooterBinder.ViewHolder> {
     private String txtFooter;
 
     public FooterBinder(String txtFooter) {
@@ -23,13 +25,13 @@ public class FooterBinder extends ViewBinder<Object, FooterBinder.ViewHolder> {
     }
 
     @Override
-    public void bindView(RecyclerViewAdapter adapter, ViewHolder holder, int position, Object entity) {
+    protected void bindFooter(IListAdapter adapter, ViewHolder holder, int position) {
         holder.ivFooter.setImageResource(R.mipmap.ic_launcher);
         holder.tvFooter.setText(txtFooter);
     }
 
     @Override
-    public int getItemLayoutId() {
+    public int getItemLayoutId(IListAdapter adapter) {
         return R.layout.item_footer;
     }
 

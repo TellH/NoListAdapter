@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import tellh.com.nolistadapter.adapter.IListAdapter;
 import tellh.com.nolistadapter.viewbinder.ViewBinder;
 
 /**
@@ -16,14 +17,14 @@ public class UserViewBinder extends ViewBinder<User, UserViewBinder.ViewHolder> 
     }
 
     @Override
-    public void bindView(RecyclerViewAdapter adapter, UserViewBinder.ViewHolder holder, int position, User entity) {
+    public void bindView(IListAdapter adapter, UserViewBinder.ViewHolder holder, int position, User entity) {
         holder.tvId.setText(String.valueOf(entity.getId()));
         holder.tvName.setText(entity.getLogin());
         holder.tvUrl.setText(entity.getHtml_url());
     }
 
     @Override
-    public int getItemLayoutId() {
+    public int getItemLayoutId(IListAdapter adapter) {
         return R.layout.item_user;
     }
 

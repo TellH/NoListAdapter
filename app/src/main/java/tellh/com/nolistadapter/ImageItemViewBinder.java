@@ -4,7 +4,9 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import tellh.com.nolistadapter.adapter.IListAdapter;
 import tellh.com.nolistadapter.viewbinder.EasyViewBinder;
+import tellh.com.nolistadapter.viewbinder.RecyclerViewHolder;
 import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
 
 /**
@@ -13,7 +15,7 @@ import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
 public class ImageItemViewBinder extends EasyViewBinder<ImageItemViewBinder.ImageItem> {
 
     @Override
-    public void bindView(RecyclerViewAdapter adapter, RecyclerViewHolder holder, int position, ImageItem entity) {
+    public void bindView(IListAdapter adapter, RecyclerViewHolder holder, int position, ImageItem entity) {
         ImageView imageView = holder.getImageView(R.id.image);
         Picasso.with(imageView.getContext())
                 .load(entity.url)
@@ -21,7 +23,7 @@ public class ImageItemViewBinder extends EasyViewBinder<ImageItemViewBinder.Imag
     }
 
     @Override
-    public int getItemLayoutId() {
+    public int getItemLayoutId(IListAdapter adapter) {
         return R.layout.item_image;
     }
 
@@ -33,7 +35,7 @@ public class ImageItemViewBinder extends EasyViewBinder<ImageItemViewBinder.Imag
         }
 
         @Override
-        public int getItemLayoutId() {
+        public int getItemLayoutId(IListAdapter adapter) {
             return R.layout.item_image;
         }
     }
