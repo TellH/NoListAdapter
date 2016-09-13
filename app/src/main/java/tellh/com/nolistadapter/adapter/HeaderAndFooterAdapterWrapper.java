@@ -30,6 +30,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
         mAdapter = adapter;
     }
 
+
     private boolean isHeaderViewPos(int position) {
         return position < getHeadersCount();
     }
@@ -66,6 +67,8 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
 
     @Override
     public int getItemViewType(int position) {
+        if (mAdapter.getDisplayList().size() == 0)
+            return mAdapter.getItemViewType(position);
         if (isHeaderViewPos(position)) {
             return headerBinderList.get(position).getItemLayoutId(this);
         } else if (isFooterViewPos(position)) {
@@ -117,6 +120,8 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (mAdapter.getDisplayList().size() == 0)
+            return mAdapter.onCreateViewHolder(parent, viewType);
         Context context = parent.getContext();
         RecyclerView.ViewHolder viewHolder;
         viewHolder = getHeaderViewHolder(viewType, context, parent);
@@ -130,6 +135,10 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (mAdapter.getDisplayList().size() == 0) {
+            mAdapter.onBindViewHolder(holder, position);
+            return;
+        }
         if (isHeaderViewPos(position)) {
             headerBinderList.get(position).bindView(this, holder, position, null);
             return;
@@ -144,6 +153,8 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
 
     @Override
     public int getItemCount() {
+        if (mAdapter.getDisplayList().size() == 0)
+            return mAdapter.getItemCount();
         return mAdapter.getItemCount() + getHeadersCount() + getFootersCount();
     }
 
@@ -162,6 +173,11 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
             });
             manager.setSpanCount(manager.getSpanCount());
         }
+    }
+
+    @Override
+    public void setEmptyViewBinder(ViewBinder emptyViewBinder) {
+        mAdapter.setEmptyViewBinder(emptyViewBinder);
     }
 
     @Override

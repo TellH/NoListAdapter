@@ -2,6 +2,7 @@ package tellh.com.nolistadapter;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +15,14 @@ import java.util.List;
 
 import tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper;
 import tellh.com.nolistadapter.adapter.RecyclerViewAdapter;
+import tellh.com.nolistadapter.viewbinder.EasyEmptyViewBinder;
 import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
 
 public class MainActivity extends AppCompatActivity implements FooterLoadMoreAdapterWrapper.OnReachFooterListener {
 
     private RecyclerView list;
     private RecyclerViewAdapter adapter;
+    private SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
         }
         adapter = RecyclerViewAdapter.builder()
                 .displayList(displayList)
+                .setEmptyView(new EasyEmptyViewBinder(R.layout.empty_view))
                 .addItemType(new UserViewBinder()) //different item type have different ways to bind data to ViewHolder.
                 .addItemType(new ImageItemViewBinder())
                 .addHeader(new ControlerViewBinder(this))
@@ -54,7 +58,19 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
 
     private void initView() {
         list = (RecyclerView) findViewById(R.id.list);
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
         list.setLayoutManager(new LinearLayoutManager(this));
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh();
+                    }
+                }, 800);
+            }
+        });
     }
 
     @Override
@@ -73,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
             displayList.add(userList.get(i));
         }
         adapter.refresh(displayList);
+        refreshLayout.setRefreshing(false);
     }
 
     public void loadMore() {
@@ -97,5 +114,9 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
                 loadMore();
             }
         }, 800);
+    }
+
+    public void clear() {
+        adapter.clear(list);
     }
 }

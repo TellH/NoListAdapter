@@ -32,30 +32,6 @@ public class FooterLoadMoreAdapterWrapper extends HeaderAndFooterAdapterWrapper 
         setOnReachFooterListener(recyclerView, listener);
     }
 
-//    @Override
-//    protected void onBindFooter(RecyclerViewHolder holder, int position) {
-//        ProgressBar progressBar = (ProgressBar) holder.getView(R.id.progressBar);
-//        if (mItems.size() == 0) {
-//            progressBar.setVisibility(View.INVISIBLE);
-//            holder.setText(R.id.tv_footer, Utils.getString(R.string.empty));
-//            return;
-//        }
-//        switch (mFooterStatus) {
-//            case PULL_TO_LOAD_MORE:
-//                progressBar.setVisibility(View.VISIBLE);
-//                holder.setText(R.id.tv_footer, toLoadText);
-//                break;
-//            case LOADING:
-//                progressBar.setVisibility(View.VISIBLE);
-//                holder.setText(R.id.tv_footer, loadingText);
-//                break;
-//            case NO_MORE:
-//                holder.setText(R.id.tv_footer, noMoreText);
-//                progressBar.setVisibility(View.INVISIBLE);
-//                break;
-//        }
-//    }
-
     public void setOnReachFooterListener(RecyclerView recyclerView, final OnReachFooterListener listener) {
         if (recyclerView == null || listener == null)
             return;
@@ -73,7 +49,6 @@ public class FooterLoadMoreAdapterWrapper extends HeaderAndFooterAdapterWrapper 
             }
         });
     }
-
 
     public void setFooterStatus(FooterState status) {
         mFooterStatus = status;

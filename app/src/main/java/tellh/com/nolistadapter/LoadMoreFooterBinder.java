@@ -1,6 +1,5 @@
 package tellh.com.nolistadapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -45,7 +44,7 @@ public class LoadMoreFooterBinder extends FooterViewBinder<LoadMoreFooterBinder.
     }
 
     @Override
-    public RecyclerView.ViewHolder provideViewHolder(View itemView) {
+    public ViewHolder provideViewHolder(View itemView) {
         return new LoadMoreFooterBinder.ViewHolder(itemView);
     }
 

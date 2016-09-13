@@ -1,6 +1,5 @@
 package tellh.com.nolistadapter.viewbinder;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
@@ -8,7 +7,7 @@ import android.view.View;
  */
 public abstract class EasyViewBinder<T> extends ViewBinder<T, RecyclerViewHolder> {
     @Override
-    final public RecyclerView.ViewHolder provideViewHolder(View itemView) {
+    final public RecyclerViewHolder provideViewHolder(View itemView) {
         return new RecyclerViewHolder(itemView);
     }
 }

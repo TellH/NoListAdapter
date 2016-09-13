@@ -1,6 +1,5 @@
 package tellh.com.nolistadapter;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -19,7 +18,7 @@ public class HeaderBinder extends HeaderViewBinder<HeaderBinder.ViewHolder> {
     }
 
     @Override
-    public RecyclerView.ViewHolder provideViewHolder(View itemView) {
+    public ViewHolder provideViewHolder(View itemView) {
         return new ViewHolder(itemView);
     }
 

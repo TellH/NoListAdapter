@@ -10,7 +10,7 @@ import tellh.com.nolistadapter.adapter.IListAdapter;
  * Created by tlh on 2016/9/12 :)
  */
 public abstract class ViewBinder<T, VH extends RecyclerView.ViewHolder> implements LayoutItemType {
-    public abstract RecyclerView.ViewHolder provideViewHolder(View itemView);
+    public abstract VH provideViewHolder(View itemView);
 
     public abstract void bindView(IListAdapter adapter, VH holder, int position, T entity);
 
