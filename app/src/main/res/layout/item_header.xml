@@ -5,6 +5,7 @@
 
     <TextView
         android:id="@+id/tv_header"
+        android:text="I am header."
         android:textStyle="bold"
         android:gravity="center"
         android:layout_width="match_parent"

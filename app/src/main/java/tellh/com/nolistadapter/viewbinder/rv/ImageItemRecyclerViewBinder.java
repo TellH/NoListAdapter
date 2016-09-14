@@ -1,19 +1,19 @@
-package tellh.com.nolistadapter.viewbinder;
+package tellh.com.nolistadapter.viewbinder.rv;
 
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
 import tellh.com.nolistadapter.R;
+import tellh.com.nolistadapter.bean.ImageItem;
 import tellh.nolistadapter_common.IListAdapter;
 import tellh.nolistadapter_rv.viewbinder.utils.EasyRecyclerViewBinder;
 import tellh.nolistadapter_rv.viewbinder.utils.EasyRecyclerViewHolder;
-import tellh.nolistadapter_common.DataBean;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public class ImageItemRecyclerViewBinder extends EasyRecyclerViewBinder<ImageItemRecyclerViewBinder.ImageItem> {
+public class ImageItemRecyclerViewBinder extends EasyRecyclerViewBinder<ImageItem> {
 
     @Override
     public void bindView(IListAdapter adapter, EasyRecyclerViewHolder holder, int position, ImageItem entity) {
@@ -27,19 +27,6 @@ public class ImageItemRecyclerViewBinder extends EasyRecyclerViewBinder<ImageIte
     @Override
     public int getItemLayoutId(IListAdapter adapter) {
         return R.layout.item_image;
-    }
-
-    public static class ImageItem extends DataBean {
-        public String url;
-
-        public ImageItem(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public int getItemLayoutId(IListAdapter adapter) {
-            return R.layout.item_image;
-        }
     }
 
 //    protected class ViewHolder extends RecyclerViewBinder.ViewHolder {

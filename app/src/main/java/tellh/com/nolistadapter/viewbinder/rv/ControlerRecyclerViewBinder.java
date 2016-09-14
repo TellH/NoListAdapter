@@ -1,9 +1,9 @@
-package tellh.com.nolistadapter.viewbinder;
+package tellh.com.nolistadapter.viewbinder.rv;
 
 import android.view.View;
 import android.widget.Button;
 
-import tellh.com.nolistadapter.MainActivity;
+import tellh.com.nolistadapter.RecyclerViewActivity;
 import tellh.com.nolistadapter.R;
 import tellh.nolistadapter_common.IListAdapter;
 import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
@@ -14,9 +14,9 @@ import tellh.nolistadapter_rv.viewbinder.sub.HeaderRecyclerViewBinder;
  */
 public class ControlerRecyclerViewBinder extends HeaderRecyclerViewBinder<ControlerRecyclerViewBinder.ViewHolder> {
 
-    private MainActivity activity;
+    private RecyclerViewActivity activity;
 
-    public ControlerRecyclerViewBinder(MainActivity activity) {
+    public ControlerRecyclerViewBinder(RecyclerViewActivity activity) {
         this.activity = activity;
     }
 

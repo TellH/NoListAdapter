@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/refreshLayout"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="tellh.com.nolistadapter.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
+
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="8dp"
-        tools:listitem="@layout/item_user" />
-</android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="wrap_content"
+        android:text="ListView"
+        android:onClick="onClickLV"
+        android:id="@+id/btn_lv"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RecyclerView"
+        android:id="@+id/btn_rv"
+        android:onClick="onClickRV"
+        android:layout_marginTop="36dp" />
+</LinearLayout>

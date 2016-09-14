@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/NoListAdapter.iml" filepath="$PROJECT_DIR$/NoListAdapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/nolistadapter-common/nolistadapter-common.iml" filepath="$PROJECT_DIR$/nolistadapter-common/nolistadapter-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nolistadapter-lv/nolistadapter-lv.iml" filepath="$PROJECT_DIR$/nolistadapter-lv/nolistadapter-lv.iml" />
       <module fileurl="file://$PROJECT_DIR$/nolistadapter-rv/nolistadapter-rv.iml" filepath="$PROJECT_DIR$/nolistadapter-rv/nolistadapter-rv.iml" />
     </modules>
   </component>

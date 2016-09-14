@@ -1,4 +1,4 @@
-package tellh.com.nolistadapter.viewbinder;
+package tellh.com.nolistadapter.viewbinder.rv;
 
 import android.view.View;
 import android.widget.TextView;

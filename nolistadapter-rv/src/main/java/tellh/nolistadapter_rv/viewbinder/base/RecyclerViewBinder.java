@@ -6,13 +6,12 @@ import android.view.View;
 
 import tellh.nolistadapter_common.IListAdapter;
 import tellh.nolistadapter_common.IViewBinder;
-import tellh.nolistadapter_common.LayoutItemType;
 import tellh.nolistadapter_common.IViewBinderProvider;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public abstract class RecyclerViewBinder<T extends IViewBinderProvider, VH extends RecyclerView.ViewHolder> implements LayoutItemType, IViewBinder<T, VH> {
+public abstract class RecyclerViewBinder<T extends IViewBinderProvider, VH extends RecyclerView.ViewHolder> implements IViewBinder<T, VH> {
     public abstract VH provideViewHolder(View itemView);
 
     public abstract void bindView(IListAdapter adapter, VH holder, int position, T entity);
