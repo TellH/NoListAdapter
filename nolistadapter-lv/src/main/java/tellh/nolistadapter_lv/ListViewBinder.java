@@ -13,12 +13,12 @@ import tellh.nolistadapter_common.LayoutItemType;
 public abstract class ListViewBinder<T extends IViewBinderProvider, VH extends ListViewBinder.ViewHolder>
         implements LayoutItemType, IViewBinder<T, VH> {
     public static class ViewHolder {
-        public View rootView;
+        public View itemView;
         public ViewHolder(View rootView) {
-            this.rootView = rootView;
+            this.itemView = rootView;
         }
         protected <T extends View> T findViewById(@IdRes int id) {
-            return (T) rootView.findViewById(id);
+            return (T) itemView.findViewById(id);
         }
     }
 }
