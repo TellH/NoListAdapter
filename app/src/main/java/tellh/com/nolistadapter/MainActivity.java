@@ -13,11 +13,23 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-import tellh.com.nolistadapter.ImageItemViewBinder.ImageItem;
-import tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper;
-import tellh.com.nolistadapter.adapter.RecyclerViewAdapter;
-import tellh.com.nolistadapter.viewbinder.EasyEmptyViewBinder;
-import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
+import tellh.com.nolistadapter.bean.Response;
+import tellh.com.nolistadapter.bean.User;
+import tellh.com.nolistadapter.viewbinder.ControlerViewBinder;
+import tellh.com.nolistadapter.viewbinder.ErrorBinder;
+import tellh.com.nolistadapter.viewbinder.FooterBinder;
+import tellh.com.nolistadapter.viewbinder.HeaderBinder;
+import tellh.com.nolistadapter.viewbinder.ImageItemViewBinder;
+import tellh.com.nolistadapter.viewbinder.ImageItemViewBinder.ImageItem;
+import tellh.com.nolistadapter.viewbinder.LoadMoreFooterBinder;
+import tellh.com.nolistadapter.viewbinder.UserViewBinder;
+import tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper;
+import tellh.nolistadapter_rv.adapter.RecyclerViewAdapter;
+import tellh.nolistadapter_rv.viewbinder.utils.EasyEmptyViewBinder;
+import tellh.nolistadapter_rv.viewbinder.provider.ViewBinderProvider;
+
+import static tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE;
+import static tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper.UpdateType.REFRESH;
 
 public class MainActivity extends AppCompatActivity implements FooterLoadMoreAdapterWrapper.OnReachFooterListener, ErrorBinder.OnReLoadCallback {
 
@@ -71,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
                     public void run() {
                         refresh();
                     }
-                }, 800);
+                }, 1000);
             }
         });
     }
@@ -92,26 +104,25 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
             displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
             displayList.add(userList.get(i));
         }
-        adapter.refresh(displayList);
-        adapter.hideErrorView(list);
+        FooterLoadMoreAdapterWrapper footerLoadMoreAdapterWrapper = (FooterLoadMoreAdapterWrapper) adapter;
+        footerLoadMoreAdapterWrapper.OnGetData(displayList, REFRESH);
+        footerLoadMoreAdapterWrapper.hideErrorView(list);
         refreshLayout.setRefreshing(false);
     }
 
     public void loadMore() {
         FooterLoadMoreAdapterWrapper footerLoadMoreAdapterWrapper = (FooterLoadMoreAdapterWrapper) adapter;
-        if (footerLoadMoreAdapterWrapper.getCurPage() == 3) {
-            footerLoadMoreAdapterWrapper.setFooterStatus(FooterLoadMoreAdapterWrapper.FooterState.NO_MORE);
-            return;
-        }
         Gson gson = new Gson();
         Response response = gson.fromJson(Response.responseJsonPage2, Response.class);
         List<User> userList = response.getItems();
         List<ViewBinderProvider> displayList = new ArrayList<>();
-        for (int i = 0; i < userList.size(); i++) {
-            displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
-            displayList.add(userList.get(i));
+        if (footerLoadMoreAdapterWrapper.getCurPage() != 3) {
+            for (int i = 0; i < userList.size(); i++) {
+                displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
+                displayList.add(userList.get(i));
+            }
         }
-        footerLoadMoreAdapterWrapper.OnGetData(displayList, FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE);
+        footerLoadMoreAdapterWrapper.OnGetData(displayList, LOAD_MORE);
     }
 
     @Override
