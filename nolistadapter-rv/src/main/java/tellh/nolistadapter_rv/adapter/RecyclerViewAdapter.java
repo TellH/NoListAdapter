@@ -12,24 +12,24 @@ import java.util.Collections;
 import java.util.List;
 
 import tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper.OnReachFooterListener;
-import tellh.nolistadapter_rv.viewbinder.sub.EmptyViewBinder;
-import tellh.nolistadapter_rv.viewbinder.sub.ErrorViewBinder;
-import tellh.nolistadapter_rv.viewbinder.sub.FooterViewBinder;
-import tellh.nolistadapter_rv.viewbinder.sub.HeaderViewBinder;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
-import tellh.nolistadapter_rv.viewbinder.provider.ViewBinderProvider;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.EmptyRecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.ErrorRecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.FooterRecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.HeaderRecyclerViewBinder;
+import tellh.nolistadapter_common.ViewBinderProvider;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements IListAdapter {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements IListAdapter_RV {
     private static int SIZE_VIEW_BINDER_POOL = 10;
-    private ViewBinder viewBinderCache;
+    private RecyclerViewBinder viewBinderCache;
 
-    private ViewBinder emptyViewBinder;
-    protected ErrorViewBinder errorViewBinder;
+    private RecyclerViewBinder emptyViewBinder;
+    protected ErrorRecyclerViewBinder errorViewBinder;
 
-    private SparseArrayCompat<ViewBinder> viewBinderPool;
+    private SparseArrayCompat<RecyclerViewBinder> viewBinderPool;
     protected List<ViewBinderProvider> displayList;
 
     public RecyclerViewAdapter(List<ViewBinderProvider> displayList) {
@@ -60,13 +60,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewBinder viewBinder = getViewBinder(viewType);
+        RecyclerViewBinder viewBinder = getViewBinder(viewType);
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(viewBinder.getItemLayoutId(this), parent, false);
         return viewBinder.provideViewHolder(itemView);
     }
 
-    private ViewBinder getViewBinder(int viewType) {
+    private RecyclerViewBinder getViewBinder(int viewType) {
         //error view
         if (errorViewBinder != null && errorViewBinder.showNow && errorViewBinder.getItemLayoutId(this) == viewType)
             return errorViewBinder;
@@ -74,7 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (displayList.size() == 0 && emptyViewBinder != null && viewType == emptyViewBinder.getItemLayoutId(this))
             return emptyViewBinder;
         //In most situation, item type in a list could be only one. So I cache this binder.
-        ViewBinder viewBinder;
+        RecyclerViewBinder viewBinder;
         if (viewBinderPool.size() == 1) {
             if (viewBinderCache == null)
                 viewBinder = viewBinderCache = viewBinderPool.get(viewType);
@@ -89,7 +89,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         //error view
         if (errorViewBinder != null && errorViewBinder.showNow) {
-            errorViewBinder.bindView(this, (ViewBinder.ViewHolder) holder, position, null);
+            errorViewBinder.bindView(this, (RecyclerViewBinder.ViewHolder) holder, position, null);
             return;
         }
         //empty view
@@ -116,7 +116,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return displayList == null ? 0 : displayList.size();
     }
 
-    public ViewBinder findViewBinderFromPool(@LayoutRes int layoutId) {
+    public RecyclerViewBinder findViewBinderFromPool(@LayoutRes int layoutId) {
         return viewBinderPool.get(layoutId);
     }
 
@@ -188,11 +188,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         recyclerView.scrollToPosition(0);
     }
 
-    public void setEmptyViewBinder(ViewBinder emptyViewBinder) {
+    public void setEmptyViewBinder(RecyclerViewBinder emptyViewBinder) {
         this.emptyViewBinder = emptyViewBinder;
     }
 
-    public void setErrorViewBinder(ErrorViewBinder errorViewBinder) {
+    public void setErrorViewBinder(ErrorRecyclerViewBinder errorViewBinder) {
         this.errorViewBinder = errorViewBinder;
     }
 
@@ -218,35 +218,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return this;
         }
 
-        public Builder addItemType(ViewBinder viewBinder) {
+        public Builder addItemType(RecyclerViewBinder viewBinder) {
             adapter.viewBinderPool.put(viewBinder.getItemLayoutId(adapter), viewBinder);
             return this;
         }
 
-        public Builder addHeader(HeaderViewBinder viewBinder) {
+        public Builder addHeader(HeaderRecyclerViewBinder viewBinder) {
             initHFAdapterWrapper();
             headerAndFooterAdapterWrapper.addHeader(viewBinder);
             return this;
         }
 
-        public Builder addFooter(FooterViewBinder viewBinder) {
+        public Builder addFooter(FooterRecyclerViewBinder viewBinder) {
             initHFAdapterWrapper();
             headerAndFooterAdapterWrapper.addFooter(viewBinder);
             return this;
         }
 
-        public Builder setEmptyView(EmptyViewBinder viewBinder) {
+        public Builder setEmptyView(EmptyRecyclerViewBinder viewBinder) {
             adapter.setEmptyViewBinder(viewBinder);
             return this;
         }
 
-        public Builder setErrorView(ErrorViewBinder viewBinder) {
+        public Builder setErrorView(ErrorRecyclerViewBinder viewBinder) {
             adapter.setErrorViewBinder(viewBinder);
             return this;
         }
 
         //This load more footer should only be added once.
-        public Builder setLoadMoreFooter(FooterViewBinder viewBinder, RecyclerView recyclerView, final OnReachFooterListener listener) {
+        public Builder setLoadMoreFooter(FooterRecyclerViewBinder viewBinder, RecyclerView recyclerView, final OnReachFooterListener listener) {
             FooterLoadMoreAdapterWrapper footerLoadMoreAdapterWrapper = new FooterLoadMoreAdapterWrapper(adapter, recyclerView, listener);
             footerLoadMoreAdapterWrapper.addFooter(viewBinder);
             adapter = footerLoadMoreAdapterWrapper;

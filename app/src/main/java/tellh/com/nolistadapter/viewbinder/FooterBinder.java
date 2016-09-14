@@ -5,14 +5,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import tellh.com.nolistadapter.R;
-import tellh.nolistadapter_rv.adapter.IListAdapter;
-import tellh.nolistadapter_rv.viewbinder.sub.FooterViewBinder;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.FooterRecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public class FooterBinder extends FooterViewBinder<FooterBinder.ViewHolder> {
+public class FooterBinder extends FooterRecyclerViewBinder<FooterBinder.ViewHolder> {
     private String txtFooter;
 
     public FooterBinder(String txtFooter) {
@@ -35,7 +35,7 @@ public class FooterBinder extends FooterViewBinder<FooterBinder.ViewHolder> {
         return R.layout.item_footer;
     }
 
-    public static class ViewHolder extends ViewBinder.ViewHolder {
+    public static class ViewHolder extends RecyclerViewBinder.ViewHolder {
         public ImageView ivFooter;
         public TextView tvFooter;
 

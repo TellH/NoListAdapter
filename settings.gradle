@@ -1,1 +1,1 @@
-include ':app', ':nolistadapter-rv'
+include ':app', ':nolistadapter-rv', ':nolistadapter-common'

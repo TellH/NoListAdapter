@@ -1,8 +1,8 @@
 package tellh.com.nolistadapter.bean;
 
 import tellh.com.nolistadapter.R;
-import tellh.nolistadapter_rv.adapter.IListAdapter;
-import tellh.nolistadapter_rv.viewbinder.provider.ViewBinderProvider;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_common.ViewBinderProvider;
 
 /**
  * Created by tlh on 2016/9/12 :)

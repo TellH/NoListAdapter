@@ -4,14 +4,14 @@ import android.view.View;
 import android.widget.Button;
 
 import tellh.com.nolistadapter.R;
-import tellh.nolistadapter_rv.adapter.IListAdapter;
-import tellh.nolistadapter_rv.viewbinder.sub.ErrorViewBinder;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.ErrorRecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/14 :)
  */
-public class ErrorBinder extends ErrorViewBinder<ErrorBinder.ViewHolder> {
+public class ErrorBinder extends ErrorRecyclerViewBinder<ErrorBinder.ViewHolder> {
     OnReLoadCallback callback;
 
     public ErrorBinder(OnReLoadCallback callback) {
@@ -39,7 +39,7 @@ public class ErrorBinder extends ErrorViewBinder<ErrorBinder.ViewHolder> {
         return R.layout.error_view;
     }
 
-    public static class ViewHolder extends ViewBinder.ViewHolder {
+    public static class ViewHolder extends RecyclerViewBinder.ViewHolder {
         Button btn_refresh;
 
         public ViewHolder(View rootView) {

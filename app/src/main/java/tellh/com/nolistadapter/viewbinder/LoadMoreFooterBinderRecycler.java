@@ -7,14 +7,14 @@ import android.widget.TextView;
 
 import tellh.com.nolistadapter.R;
 import tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper;
-import tellh.nolistadapter_rv.adapter.IListAdapter;
-import tellh.nolistadapter_rv.viewbinder.sub.FooterViewBinder;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.FooterRecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/13 :)
  */
-public class LoadMoreFooterBinder extends FooterViewBinder<LoadMoreFooterBinder.ViewHolder> {
+public class LoadMoreFooterBinderRecycler extends FooterRecyclerViewBinder<LoadMoreFooterBinderRecycler.ViewHolder> {
     private String toLoadText = "Pull to load more";
     private String noMoreText = "no more data";
     private String loadingText = "Loading…";
@@ -46,7 +46,7 @@ public class LoadMoreFooterBinder extends FooterViewBinder<LoadMoreFooterBinder.
 
     @Override
     public ViewHolder provideViewHolder(View itemView) {
-        return new LoadMoreFooterBinder.ViewHolder(itemView);
+        return new LoadMoreFooterBinderRecycler.ViewHolder(itemView);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class LoadMoreFooterBinder extends FooterViewBinder<LoadMoreFooterBinder.
         return R.layout.footer_load_more;
     }
 
-    public static class ViewHolder extends ViewBinder.ViewHolder {
+    public static class ViewHolder extends RecyclerViewBinder.ViewHolder {
         public TextView tvFooter;
         public ProgressBar progressBar;
         public ImageView ivFooter;

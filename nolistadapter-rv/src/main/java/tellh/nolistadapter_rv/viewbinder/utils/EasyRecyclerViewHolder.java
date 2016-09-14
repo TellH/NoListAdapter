@@ -10,10 +10,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+public class EasyRecyclerViewHolder extends RecyclerView.ViewHolder {
     private SparseArray<View> mViews;
 
-    public RecyclerViewHolder(View itemView) {
+    public EasyRecyclerViewHolder(View itemView) {
         super(itemView);
         mViews = new SparseArray<>();
     }
@@ -55,26 +55,26 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         return (EditText) getView(viewId);
     }
 
-    public RecyclerViewHolder setText(int viewId, String value) {
+    public EasyRecyclerViewHolder setText(int viewId, String value) {
         TextView view = findViewById(viewId);
         view.setText(value);
         return this;
     }
 
-    public RecyclerViewHolder setText(int viewId, CharSequence value) {
+    public EasyRecyclerViewHolder setText(int viewId, CharSequence value) {
         TextView view = findViewById(viewId);
         view.setMovementMethod(LinkMovementMethod.getInstance());
         view.setText(value);
         return this;
     }
 
-    public RecyclerViewHolder setBackground(int viewId, int resId) {
+    public EasyRecyclerViewHolder setBackground(int viewId, int resId) {
         View view = findViewById(viewId);
         view.setBackgroundResource(resId);
         return this;
     }
 
-    public RecyclerViewHolder setClickListener(int viewId, View.OnClickListener listener) {
+    public EasyRecyclerViewHolder setClickListener(int viewId, View.OnClickListener listener) {
         View view = findViewById(viewId);
         view.setOnClickListener(listener);
         return this;

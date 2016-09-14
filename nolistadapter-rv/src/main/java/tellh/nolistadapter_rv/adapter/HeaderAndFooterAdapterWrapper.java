@@ -11,20 +11,22 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import tellh.nolistadapter_rv.viewbinder.sub.ErrorViewBinder;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
-import tellh.nolistadapter_rv.viewbinder.provider.ViewBinderProvider;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.ErrorRecyclerViewBinder;
+import tellh.nolistadapter_common.ViewBinderProvider;
 
 /**
  * Created by tlh on 2016/8/4.
+ *
  */
 public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implements IListAdapter {
 
     private final RecyclerViewAdapter mAdapter;
-    private SparseArrayCompat<ViewBinder> headerBinderPool;
-    private SparseArrayCompat<ViewBinder> footerBinderPool;
-    private List<ViewBinder> headerBinderList;
-    private List<ViewBinder> footerBinderList;
+    private SparseArrayCompat<RecyclerViewBinder> headerBinderPool;
+    private SparseArrayCompat<RecyclerViewBinder> footerBinderPool;
+    private List<RecyclerViewBinder> headerBinderList;
+    private List<RecyclerViewBinder> footerBinderList;
 
     public HeaderAndFooterAdapterWrapper(RecyclerViewAdapter adapter) {
         super(adapter.getDisplayList());
@@ -49,7 +51,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
         return footerBinderList == null ? 0 : footerBinderList.size();
     }
 
-    public void addHeader(ViewBinder headerBinder) {
+    public void addHeader(RecyclerViewBinder headerBinder) {
         if (headerBinderPool == null) {
             headerBinderPool = new SparseArrayCompat<>();
             headerBinderList = new ArrayList<>();
@@ -58,7 +60,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
         headerBinderList.add(headerBinder);
     }
 
-    public void addFooter(ViewBinder footerBinder) {
+    public void addFooter(RecyclerViewBinder footerBinder) {
         if (footerBinderPool == null) {
             footerBinderPool = new SparseArrayCompat<>();
             footerBinderList = new ArrayList<>();
@@ -107,7 +109,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
     private RecyclerView.ViewHolder getHeaderViewHolder(int viewType, Context context, ViewGroup parent) {
         if (headerBinderPool == null)
             return null;
-        ViewBinder viewBinder = headerBinderPool.get(viewType);
+        RecyclerViewBinder viewBinder = headerBinderPool.get(viewType);
         if (viewBinder == null)
             return null;
         return viewBinder.provideViewHolder(LayoutInflater.from(context).inflate(viewBinder.getItemLayoutId(this), parent, false));
@@ -116,7 +118,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
     private RecyclerView.ViewHolder getFooterViewHolder(int viewType, Context context, ViewGroup parent) {
         if (footerBinderPool == null)
             return null;
-        ViewBinder viewBinder = footerBinderPool.get(viewType);
+        RecyclerViewBinder viewBinder = footerBinderPool.get(viewType);
         if (viewBinder == null)
             return null;
         return viewBinder.provideViewHolder(LayoutInflater.from(context).inflate(viewBinder.getItemLayoutId(this), parent, false));
@@ -156,7 +158,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
         }
         if (isFooterViewPos(position)) {
             int index = position - getHeadersCount() - mAdapter.getItemCount();
-            footerBinderList.get(index).bindView(this, holder, position, null);
+            footerBinderList.get(index).bindView(this, holder, index, null);
             return;
         }
         mAdapter.onBindViewHolder(holder, position - getHeadersCount());
@@ -189,12 +191,12 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
     }
 
     @Override
-    public void setEmptyViewBinder(ViewBinder emptyViewBinder) {
+    public void setEmptyViewBinder(RecyclerViewBinder emptyViewBinder) {
         mAdapter.setEmptyViewBinder(emptyViewBinder);
     }
 
     @Override
-    public void setErrorViewBinder(ErrorViewBinder errorViewBinder) {
+    public void setErrorViewBinder(ErrorRecyclerViewBinder errorViewBinder) {
         mAdapter.setErrorViewBinder(errorViewBinder);
         this.errorViewBinder = mAdapter.errorViewBinder;
     }

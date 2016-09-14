@@ -5,18 +5,18 @@ import android.widget.Button;
 
 import tellh.com.nolistadapter.MainActivity;
 import tellh.com.nolistadapter.R;
-import tellh.nolistadapter_rv.adapter.IListAdapter;
-import tellh.nolistadapter_rv.viewbinder.sub.HeaderViewBinder;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.HeaderRecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public class ControlerViewBinder extends HeaderViewBinder<ControlerViewBinder.ViewHolder> {
+public class ControlerRecyclerViewBinder extends HeaderRecyclerViewBinder<ControlerRecyclerViewBinder.ViewHolder> {
 
     private MainActivity activity;
 
-    public ControlerViewBinder(MainActivity activity) {
+    public ControlerRecyclerViewBinder(MainActivity activity) {
         this.activity = activity;
     }
 
@@ -27,7 +27,7 @@ public class ControlerViewBinder extends HeaderViewBinder<ControlerViewBinder.Vi
 
     @Override
     public ViewHolder provideViewHolder(View itemView) {
-        return new ControlerViewBinder.ViewHolder(itemView);
+        return new ControlerRecyclerViewBinder.ViewHolder(itemView);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ControlerViewBinder extends HeaderViewBinder<ControlerViewBinder.Vi
         });
     }
 
-    public static class ViewHolder extends ViewBinder.ViewHolder {
+    public static class ViewHolder extends RecyclerViewBinder.ViewHolder {
         public Button btnRefresh;
         public Button btnClear;
         public Button btnError;

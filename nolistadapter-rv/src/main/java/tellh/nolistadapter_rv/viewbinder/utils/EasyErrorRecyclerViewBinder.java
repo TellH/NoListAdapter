@@ -3,18 +3,18 @@ package tellh.nolistadapter_rv.viewbinder.utils;
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
-import tellh.nolistadapter_rv.adapter.IListAdapter;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
-import tellh.nolistadapter_rv.viewbinder.sub.ErrorViewBinder;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.sub.ErrorRecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/13 :)
  */
-public class EasyErrorViewBinder extends ErrorViewBinder<ViewBinder.ViewHolder> {
+public class EasyErrorRecyclerViewBinder extends ErrorRecyclerViewBinder<RecyclerViewBinder.ViewHolder> {
     @LayoutRes
     int layoutId;
 
-    public EasyErrorViewBinder(@LayoutRes int layoutId) {
+    public EasyErrorRecyclerViewBinder(@LayoutRes int layoutId) {
         this.layoutId = layoutId;
     }
 

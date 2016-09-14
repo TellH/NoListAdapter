@@ -5,20 +5,20 @@ import android.widget.TextView;
 
 import tellh.com.nolistadapter.R;
 import tellh.com.nolistadapter.bean.User;
-import tellh.nolistadapter_rv.adapter.IListAdapter;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public class UserViewBinder extends ViewBinder<User, UserViewBinder.ViewHolder> {
+public class UserRecyclerViewBinder extends RecyclerViewBinder<User, UserRecyclerViewBinder.ViewHolder> {
     @Override
     public ViewHolder provideViewHolder(View itemView) {
-        return new UserViewBinder.ViewHolder(itemView);
+        return new UserRecyclerViewBinder.ViewHolder(itemView);
     }
 
     @Override
-    public void bindView(IListAdapter adapter, UserViewBinder.ViewHolder holder, int position, User entity) {
+    public void bindView(IListAdapter adapter, UserRecyclerViewBinder.ViewHolder holder, int position, User entity) {
         holder.tvId.setText(String.valueOf(entity.getId()));
         holder.tvName.setText(entity.getLogin());
         holder.tvUrl.setText(entity.getHtml_url());
@@ -29,7 +29,7 @@ public class UserViewBinder extends ViewBinder<User, UserViewBinder.ViewHolder> 
         return R.layout.item_user;
     }
 
-    protected class ViewHolder extends ViewBinder.ViewHolder {
+    protected class ViewHolder extends RecyclerViewBinder.ViewHolder {
         public TextView tvId;
         public TextView tvName;
         public TextView tvUrl;

@@ -15,18 +15,18 @@ import java.util.List;
 
 import tellh.com.nolistadapter.bean.Response;
 import tellh.com.nolistadapter.bean.User;
-import tellh.com.nolistadapter.viewbinder.ControlerViewBinder;
+import tellh.com.nolistadapter.viewbinder.ControlerRecyclerViewBinder;
 import tellh.com.nolistadapter.viewbinder.ErrorBinder;
 import tellh.com.nolistadapter.viewbinder.FooterBinder;
 import tellh.com.nolistadapter.viewbinder.HeaderBinder;
-import tellh.com.nolistadapter.viewbinder.ImageItemViewBinder;
-import tellh.com.nolistadapter.viewbinder.ImageItemViewBinder.ImageItem;
-import tellh.com.nolistadapter.viewbinder.LoadMoreFooterBinder;
-import tellh.com.nolistadapter.viewbinder.UserViewBinder;
+import tellh.com.nolistadapter.viewbinder.ImageItemRecyclerViewBinder;
+import tellh.com.nolistadapter.viewbinder.ImageItemRecyclerViewBinder.ImageItem;
+import tellh.com.nolistadapter.viewbinder.LoadMoreFooterBinderRecycler;
+import tellh.com.nolistadapter.viewbinder.UserRecyclerViewBinder;
 import tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper;
 import tellh.nolistadapter_rv.adapter.RecyclerViewAdapter;
-import tellh.nolistadapter_rv.viewbinder.utils.EasyEmptyViewBinder;
-import tellh.nolistadapter_rv.viewbinder.provider.ViewBinderProvider;
+import tellh.nolistadapter_rv.viewbinder.utils.EasyEmptyRecyclerViewBinder;
+import tellh.nolistadapter_common.ViewBinderProvider;
 
 import static tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE;
 import static tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper.UpdateType.REFRESH;
@@ -56,16 +56,16 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
         }
         adapter = RecyclerViewAdapter.builder()
                 .displayList(displayList)
-                .addItemType(new UserViewBinder()) //different item type have different ways to bind data to ViewHolder.
-                .addItemType(new ImageItemViewBinder())
-                .addHeader(new ControlerViewBinder(this))
+                .addItemType(new UserRecyclerViewBinder()) //different item type have different ways to bind data to ViewHolder.
+                .addItemType(new ImageItemRecyclerViewBinder())
+                .addHeader(new ControlerRecyclerViewBinder(this))
                 .addHeader(new HeaderBinder("I am the first header! 我是沙发"))
                 .addHeader(new HeaderBinder("I am the second header! 我是板凳"))
                 .addFooter(new FooterBinder("------I am the footer!------"))
                 .addFooter(new FooterBinder("------我是有底线的！-------"))
-                .setLoadMoreFooter(new LoadMoreFooterBinder(), list, this)
-                .setEmptyView(new EasyEmptyViewBinder(R.layout.empty_view))
-//                .setErrorView(new EasyErrorViewBinder(R.layout.error_view))
+                .setLoadMoreFooter(new LoadMoreFooterBinderRecycler(), list, this)
+                .setEmptyView(new EasyEmptyRecyclerViewBinder(R.layout.empty_view))
+//                .setErrorView(new EasyErrorRecyclerViewBinder(R.layout.error_view))
                 .setErrorView(new ErrorBinder(this))
                 .build();
         list.setAdapter(adapter);

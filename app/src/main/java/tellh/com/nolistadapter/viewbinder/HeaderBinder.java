@@ -4,14 +4,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import tellh.com.nolistadapter.R;
-import tellh.nolistadapter_rv.adapter.IListAdapter;
-import tellh.nolistadapter_rv.viewbinder.sub.HeaderViewBinder;
-import tellh.nolistadapter_rv.viewbinder.base.ViewBinder;
+import tellh.nolistadapter_common.IListAdapter;
+import tellh.nolistadapter_rv.viewbinder.sub.HeaderRecyclerViewBinder;
+import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public class HeaderBinder extends HeaderViewBinder<HeaderBinder.ViewHolder> {
+public class HeaderBinder extends HeaderRecyclerViewBinder<HeaderBinder.ViewHolder> {
     private String hint;
 
     public HeaderBinder(String hint) {
@@ -33,7 +33,7 @@ public class HeaderBinder extends HeaderViewBinder<HeaderBinder.ViewHolder> {
         return R.layout.item_header;
     }
 
-    public static class ViewHolder extends ViewBinder.ViewHolder {
+    public static class ViewHolder extends RecyclerViewBinder.ViewHolder {
         public TextView tvHeader;
 
         public ViewHolder(View rootView) {

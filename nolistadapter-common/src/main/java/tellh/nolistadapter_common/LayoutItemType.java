@@ -1,6 +1,4 @@
-package tellh.nolistadapter_rv.viewbinder.base;
-
-import tellh.nolistadapter_rv.adapter.IListAdapter;
+package tellh.nolistadapter_common;
 
 /**
  * Created by tlh on 2016/9/12 :)
