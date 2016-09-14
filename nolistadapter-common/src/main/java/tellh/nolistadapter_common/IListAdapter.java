@@ -6,13 +6,13 @@ import java.util.List;
  * Created by tlh on 2016/9/13 :)
  */
 public interface IListAdapter {
-    List<ViewBinderProvider> getDisplayList();
+    List<DataBean> getDisplayList();
 
-    void addAll(List<? extends ViewBinderProvider> list);
+    void addAll(List<? extends DataBean> list);
 
-    void refresh(List<? extends ViewBinderProvider> list);
+    void refresh(List<? extends DataBean> list);
 
-    void add(int pos, ViewBinderProvider item);
+    void add(int pos, DataBean item);
 
     void delete(int pos);
 

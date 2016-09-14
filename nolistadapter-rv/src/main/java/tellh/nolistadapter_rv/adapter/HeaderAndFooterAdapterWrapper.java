@@ -14,7 +14,7 @@ import java.util.List;
 import tellh.nolistadapter_common.IListAdapter;
 import tellh.nolistadapter_rv.viewbinder.base.RecyclerViewBinder;
 import tellh.nolistadapter_rv.viewbinder.sub.ErrorRecyclerViewBinder;
-import tellh.nolistadapter_common.ViewBinderProvider;
+import tellh.nolistadapter_common.DataBean;
 
 /**
  * Created by tlh on 2016/8/4.
@@ -100,7 +100,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
     }
 
     @Override
-    public void add(int pos, ViewBinderProvider item) {
+    public void add(int pos, DataBean item) {
         if (isHeaderViewPos(pos) || isFooterViewPos(pos))
             return;
         mAdapter.add(pos - getHeadersCount(), item);

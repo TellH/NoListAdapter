@@ -2,12 +2,12 @@ package tellh.com.nolistadapter.bean;
 
 import tellh.com.nolistadapter.R;
 import tellh.nolistadapter_common.IListAdapter;
-import tellh.nolistadapter_common.ViewBinderProvider;
+import tellh.nolistadapter_common.DataBean;
 
 /**
  * Created by tlh on 2016/9/12 :)
  */
-public class User extends ViewBinderProvider {
+public class User extends DataBean {
     private String login;
     private int id;
     private String html_url;

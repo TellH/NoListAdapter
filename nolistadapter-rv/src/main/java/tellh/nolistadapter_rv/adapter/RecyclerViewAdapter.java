@@ -17,7 +17,7 @@ import tellh.nolistadapter_rv.viewbinder.sub.EmptyRecyclerViewBinder;
 import tellh.nolistadapter_rv.viewbinder.sub.ErrorRecyclerViewBinder;
 import tellh.nolistadapter_rv.viewbinder.sub.FooterRecyclerViewBinder;
 import tellh.nolistadapter_rv.viewbinder.sub.HeaderRecyclerViewBinder;
-import tellh.nolistadapter_common.ViewBinderProvider;
+import tellh.nolistadapter_common.DataBean;
 
 /**
  * Created by tlh on 2016/9/12 :)
@@ -30,9 +30,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     protected ErrorRecyclerViewBinder errorViewBinder;
 
     private SparseArrayCompat<RecyclerViewBinder> viewBinderPool;
-    protected List<ViewBinderProvider> displayList;
+    protected List<DataBean> displayList;
 
-    public RecyclerViewAdapter(List<ViewBinderProvider> displayList) {
+    public RecyclerViewAdapter(List<DataBean> displayList) {
         viewBinderPool = new SparseArrayCompat<>(SIZE_VIEW_BINDER_POOL);
         if (displayList == null)
             displayList = new ArrayList<>();
@@ -40,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public List<ViewBinderProvider> getDisplayList() {
+    public List<DataBean> getDisplayList() {
         return displayList;
     }
 
@@ -99,12 +99,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             return;
         }
         //normal view
-        ViewBinderProvider viewBinderProvider = displayList.get(position);
+        DataBean dataBean = displayList.get(position);
         if (viewBinderCache != null) {
-            viewBinderCache.bindView(this, holder, position, viewBinderProvider);
+            viewBinderCache.bindView(this, holder, position, dataBean);
             return;
         }
-        viewBinderProvider.provideViewBinder(this, viewBinderPool, position).bindView(this, holder, position, viewBinderProvider);
+        dataBean.provideViewBinder(this, viewBinderPool, position).bindView(this, holder, position, dataBean);
     }
 
     @Override
@@ -129,7 +129,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void addAll(List<? extends ViewBinderProvider> list) {
+    public void addAll(List<? extends DataBean> list) {
         if (list == null)
             return;
         displayList.addAll(list);
@@ -137,7 +137,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void refresh(List<? extends ViewBinderProvider> list) {
+    public void refresh(List<? extends DataBean> list) {
         if (list == null)
             return;
         displayList.clear();
@@ -146,7 +146,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public void add(int pos, ViewBinderProvider item) {
+    public void add(int pos, DataBean item) {
         displayList.add(pos, item);
         notifyItemInserted(pos);
     }
@@ -210,10 +210,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             adapter = new RecyclerViewAdapter(null);
         }
 
-        public Builder displayList(List<? extends ViewBinderProvider> displayList) {
-            List<ViewBinderProvider> adapterList = adapter.getDisplayList();
-            for (ViewBinderProvider viewBinderProvider : displayList) {
-                adapterList.add(viewBinderProvider);
+        public Builder displayList(List<? extends DataBean> displayList) {
+            List<DataBean> adapterList = adapter.getDisplayList();
+            for (DataBean dataBean : displayList) {
+                adapterList.add(dataBean);
             }
             return this;
         }

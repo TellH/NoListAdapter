@@ -8,7 +8,7 @@ import tellh.com.nolistadapter.R;
 import tellh.nolistadapter_common.IListAdapter;
 import tellh.nolistadapter_rv.viewbinder.utils.EasyRecyclerViewBinder;
 import tellh.nolistadapter_rv.viewbinder.utils.EasyRecyclerViewHolder;
-import tellh.nolistadapter_common.ViewBinderProvider;
+import tellh.nolistadapter_common.DataBean;
 
 /**
  * Created by tlh on 2016/9/12 :)
@@ -29,7 +29,7 @@ public class ImageItemRecyclerViewBinder extends EasyRecyclerViewBinder<ImageIte
         return R.layout.item_image;
     }
 
-    public static class ImageItem extends ViewBinderProvider {
+    public static class ImageItem extends DataBean {
         public String url;
 
         public ImageItem(String url) {

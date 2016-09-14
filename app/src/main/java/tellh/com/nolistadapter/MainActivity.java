@@ -26,7 +26,7 @@ import tellh.com.nolistadapter.viewbinder.UserRecyclerViewBinder;
 import tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper;
 import tellh.nolistadapter_rv.adapter.RecyclerViewAdapter;
 import tellh.nolistadapter_rv.viewbinder.utils.EasyEmptyRecyclerViewBinder;
-import tellh.nolistadapter_common.ViewBinderProvider;
+import tellh.nolistadapter_common.DataBean;
 
 import static tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE;
 import static tellh.nolistadapter_rv.adapter.FooterLoadMoreAdapterWrapper.UpdateType.REFRESH;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
         Gson gson = new Gson();
         Response response = gson.fromJson(Response.responseJsonPage1, Response.class);
         List<User> userList = response.getItems();
-        List<ViewBinderProvider> displayList = new ArrayList<>();
+        List<DataBean> displayList = new ArrayList<>();
         for (int i = 0; i < userList.size(); i++) {
             displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
             displayList.add(userList.get(i));
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
         Gson gson = new Gson();
         Response response = gson.fromJson(Response.responseJsonPage1, Response.class);
         List<User> userList = response.getItems();
-        List<ViewBinderProvider> displayList = new ArrayList<>();
+        List<DataBean> displayList = new ArrayList<>();
         for (int i = 0; i < userList.size(); i++) {
             displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
             displayList.add(userList.get(i));
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
         Gson gson = new Gson();
         Response response = gson.fromJson(Response.responseJsonPage2, Response.class);
         List<User> userList = response.getItems();
-        List<ViewBinderProvider> displayList = new ArrayList<>();
+        List<DataBean> displayList = new ArrayList<>();
         if (footerLoadMoreAdapterWrapper.getCurPage() != 3) {
             for (int i = 0; i < userList.size(); i++) {
                 displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
