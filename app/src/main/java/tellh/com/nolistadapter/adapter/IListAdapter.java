@@ -23,4 +23,8 @@ public interface IListAdapter {
     void swap(int fromPosition, int toPosition);
 
     void clear(RecyclerView recyclerView);
+
+    void showErrorView(RecyclerView recyclerView);
+
+    void hideErrorView(RecyclerView recyclerView);
 }

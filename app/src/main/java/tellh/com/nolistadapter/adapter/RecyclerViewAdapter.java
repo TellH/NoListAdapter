@@ -3,7 +3,6 @@ package tellh.com.nolistadapter.adapter;
 import android.support.annotation.LayoutRes;
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import java.util.List;
 
 import tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.OnReachFooterListener;
 import tellh.com.nolistadapter.viewbinder.EmptyViewBinder;
+import tellh.com.nolistadapter.viewbinder.ErrorViewBinder;
 import tellh.com.nolistadapter.viewbinder.FooterViewBinder;
 import tellh.com.nolistadapter.viewbinder.HeaderViewBinder;
 import tellh.com.nolistadapter.viewbinder.ViewBinder;
@@ -27,6 +27,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ViewBinder viewBinderCache;
 
     private ViewBinder emptyViewBinder;
+    protected ErrorViewBinder errorViewBinder;
 
     private SparseArrayCompat<ViewBinder> viewBinderPool;
     protected List<ViewBinderProvider> displayList;
@@ -46,7 +47,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        Log.d(TAG, "getItemViewType() called with: " + "position = [" + position + "]");
+        if (errorViewBinder != null && errorViewBinder.showNow)
+            return errorViewBinder.getItemLayoutId(this);
         if (displayList.size() == 0) {
             return emptyViewBinder != null ? emptyViewBinder.getItemLayoutId(this) : super.getItemViewType(position);
         }
@@ -56,18 +58,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d(TAG, "onCreateViewHolder() called with: " + "parent = [" + parent + "], viewType = [" + viewType + "]");
         ViewBinder viewBinder = getViewBinder(viewType);
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(viewBinder.getItemLayoutId(this), parent, false);
         return viewBinder.provideViewHolder(itemView);
     }
 
-    //In most situation, item type in a list could be only one. So I cache this binder when it only has one item type.
     private ViewBinder getViewBinder(int viewType) {
-        if (displayList.size() == 0 && emptyViewBinder != null && viewType == emptyViewBinder.getItemLayoutId(this)) {
+        //error view
+        if (errorViewBinder != null && errorViewBinder.showNow && errorViewBinder.getItemLayoutId(this) == viewType)
+            return errorViewBinder;
+        //empty view
+        if (displayList.size() == 0 && emptyViewBinder != null && viewType == emptyViewBinder.getItemLayoutId(this))
             return emptyViewBinder;
-        }
+        //In most situation, item type in a list could be only one. So I cache this binder.
         ViewBinder viewBinder;
         if (viewBinderPool.size() == 1) {
             if (viewBinderCache == null)
@@ -81,12 +85,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder() called with: " + "holder = [" + holder + "], position = [" + position + "]");
+        //error view
+        if (errorViewBinder != null && errorViewBinder.showNow) {
+            errorViewBinder.bindView(this, (ViewBinder.ViewHolder) holder, position, null);
+            return;
+        }
+        //empty view
         if (displayList.size() == 0) {
             if (emptyViewBinder != null)
                 emptyViewBinder.bindView(this, holder, position, null);
             return;
         }
+        //normal view
         ViewBinderProvider viewBinderProvider = displayList.get(position);
         if (viewBinderCache != null) {
             viewBinderCache.bindView(this, holder, position, viewBinderProvider);
@@ -97,6 +107,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
+        if (errorViewBinder != null && errorViewBinder.showNow)
+            return 1;
         if (emptyViewBinder != null && displayList.size() == 0)
             return 1;
         return displayList == null ? 0 : displayList.size();
@@ -156,8 +168,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         recyclerView.scrollToPosition(0);
     }
 
+    @Override
+    public void showErrorView(RecyclerView recyclerView) {
+        if (errorViewBinder == null)
+            return;
+        errorViewBinder.showNow = true;
+        notifyDataSetChanged();
+        recyclerView.scrollToPosition(0);
+    }
+
+    @Override
+    public void hideErrorView(RecyclerView recyclerView) {
+        if (errorViewBinder == null)
+            return;
+        errorViewBinder.showNow = false;
+        notifyDataSetChanged();
+        recyclerView.scrollToPosition(0);
+    }
+
     public void setEmptyViewBinder(ViewBinder emptyViewBinder) {
         this.emptyViewBinder = emptyViewBinder;
+    }
+
+    public void setErrorViewBinder(ErrorViewBinder errorViewBinder) {
+        this.errorViewBinder = errorViewBinder;
     }
 
     public static Builder builder() {
@@ -201,6 +235,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public Builder setEmptyView(EmptyViewBinder viewBinder) {
             adapter.setEmptyViewBinder(viewBinder);
+            return this;
+        }
+
+        public Builder setErrorView(ErrorViewBinder viewBinder) {
+            adapter.setErrorViewBinder(viewBinder);
             return this;
         }
 

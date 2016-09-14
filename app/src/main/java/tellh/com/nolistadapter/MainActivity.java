@@ -13,12 +13,13 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import tellh.com.nolistadapter.ImageItemViewBinder.ImageItem;
 import tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper;
 import tellh.com.nolistadapter.adapter.RecyclerViewAdapter;
 import tellh.com.nolistadapter.viewbinder.EasyEmptyViewBinder;
 import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
 
-public class MainActivity extends AppCompatActivity implements FooterLoadMoreAdapterWrapper.OnReachFooterListener {
+public class MainActivity extends AppCompatActivity implements FooterLoadMoreAdapterWrapper.OnReachFooterListener, ErrorBinder.OnReLoadCallback {
 
     private RecyclerView list;
     private RecyclerViewAdapter adapter;
@@ -34,16 +35,15 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
 
     private void initData() {
         Gson gson = new Gson();
-        Response response = gson.fromJson(Response.reponseJsonPage1, Response.class);
+        Response response = gson.fromJson(Response.responseJsonPage1, Response.class);
         List<User> userList = response.getItems();
         List<ViewBinderProvider> displayList = new ArrayList<>();
         for (int i = 0; i < userList.size(); i++) {
-            displayList.add(new ImageItemViewBinder.ImageItem(userList.get(i).getAvatar_url()));
+            displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
             displayList.add(userList.get(i));
         }
         adapter = RecyclerViewAdapter.builder()
                 .displayList(displayList)
-                .setEmptyView(new EasyEmptyViewBinder(R.layout.empty_view))
                 .addItemType(new UserViewBinder()) //different item type have different ways to bind data to ViewHolder.
                 .addItemType(new ImageItemViewBinder())
                 .addHeader(new ControlerViewBinder(this))
@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
                 .addFooter(new FooterBinder("------I am the footer!------"))
                 .addFooter(new FooterBinder("------我是有底线的！-------"))
                 .setLoadMoreFooter(new LoadMoreFooterBinder(), list, this)
+                .setEmptyView(new EasyEmptyViewBinder(R.layout.empty_view))
+//                .setErrorView(new EasyErrorViewBinder(R.layout.error_view))
+                .setErrorView(new ErrorBinder(this))
                 .build();
         list.setAdapter(adapter);
     }
@@ -80,28 +83,34 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
     }
 
     public void refresh() {
+        refreshLayout.setRefreshing(true);
         Gson gson = new Gson();
-        Response response = gson.fromJson(Response.responseJsonPage2, Response.class);
+        Response response = gson.fromJson(Response.responseJsonPage1, Response.class);
         List<User> userList = response.getItems();
         List<ViewBinderProvider> displayList = new ArrayList<>();
         for (int i = 0; i < userList.size(); i++) {
-            displayList.add(new ImageItemViewBinder.ImageItem(userList.get(i).getAvatar_url()));
+            displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
             displayList.add(userList.get(i));
         }
         adapter.refresh(displayList);
+        adapter.hideErrorView(list);
         refreshLayout.setRefreshing(false);
     }
 
     public void loadMore() {
+        FooterLoadMoreAdapterWrapper footerLoadMoreAdapterWrapper = (FooterLoadMoreAdapterWrapper) adapter;
+        if (footerLoadMoreAdapterWrapper.getCurPage() == 3) {
+            footerLoadMoreAdapterWrapper.setFooterStatus(FooterLoadMoreAdapterWrapper.FooterState.NO_MORE);
+            return;
+        }
         Gson gson = new Gson();
         Response response = gson.fromJson(Response.responseJsonPage2, Response.class);
         List<User> userList = response.getItems();
         List<ViewBinderProvider> displayList = new ArrayList<>();
         for (int i = 0; i < userList.size(); i++) {
-            displayList.add(new ImageItemViewBinder.ImageItem(userList.get(i).getAvatar_url()));
+            displayList.add(new ImageItem(userList.get(i).getAvatar_url()));
             displayList.add(userList.get(i));
         }
-        FooterLoadMoreAdapterWrapper footerLoadMoreAdapterWrapper = (FooterLoadMoreAdapterWrapper) adapter;
         footerLoadMoreAdapterWrapper.OnGetData(displayList, FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE);
     }
 
@@ -118,5 +127,14 @@ public class MainActivity extends AppCompatActivity implements FooterLoadMoreAda
 
     public void clear() {
         adapter.clear(list);
+    }
+
+    public void showError() {
+        adapter.showErrorView(list);
+    }
+
+    @Override
+    public void reload() {
+        refresh();
     }
 }

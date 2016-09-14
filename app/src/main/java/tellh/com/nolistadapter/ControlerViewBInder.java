@@ -42,16 +42,24 @@ public class ControlerViewBinder extends HeaderViewBinder<ControlerViewBinder.Vi
                 activity.clear();
             }
         });
+        holder.btnError.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                activity.showError();
+            }
+        });
     }
 
     public static class ViewHolder extends ViewBinder.ViewHolder {
         public Button btnRefresh;
         public Button btnClear;
+        public Button btnError;
 
         public ViewHolder(View rootView) {
             super(rootView);
             this.btnRefresh = (Button) rootView.findViewById(R.id.btn_refresh);
             this.btnClear = (Button) rootView.findViewById(R.id.btn_clear);
+            this.btnError = (Button) rootView.findViewById(R.id.btn_error);
         }
 
     }

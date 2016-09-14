@@ -17,7 +17,7 @@ public class Response {
         this.items = items;
     }
 
-    public static String reponseJsonPage1 = "{\"items\": [\n" +
+    public static String responseJsonPage1 = "{\"items\": [\n" +
             "    {\n" +
             "      \"login\": \"JakeWharton\",\n" +
             "      \"id\": 66577,\n" +

@@ -39,7 +39,7 @@ public class FooterLoadMoreAdapterWrapper extends HeaderAndFooterAdapterWrapper 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (!isReachBottom(recyclerView, newState) || getDisplayList().size() == 0)
+                if (!isReachBottom(recyclerView, newState) || getDisplayList().size() == 0 || (errorViewBinder != null && errorViewBinder.showNow))
                     return;
                 if (mFooterStatus != FooterState.LOADING
                         && mFooterStatus != FooterState.NO_MORE) {

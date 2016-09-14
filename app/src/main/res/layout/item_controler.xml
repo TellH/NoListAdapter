@@ -16,4 +16,11 @@
         android:text="Clear"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/btn_error"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="Error"
+        android:textAllCaps="false" />
+
 </LinearLayout>

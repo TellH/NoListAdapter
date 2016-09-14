@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import tellh.com.nolistadapter.viewbinder.ErrorViewBinder;
 import tellh.com.nolistadapter.viewbinder.ViewBinder;
 import tellh.com.nolistadapter.viewbinder.ViewBinderProvider;
 
@@ -28,6 +29,7 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
     public HeaderAndFooterAdapterWrapper(RecyclerViewAdapter adapter) {
         super(adapter.getDisplayList());
         mAdapter = adapter;
+        this.errorViewBinder = mAdapter.errorViewBinder;
     }
 
 
@@ -67,6 +69,8 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
 
     @Override
     public int getItemViewType(int position) {
+        if (errorViewBinder != null && errorViewBinder.showNow)
+            return mAdapter.getItemViewType(position);
         if (mAdapter.getDisplayList().size() == 0)
             return mAdapter.getItemViewType(position);
         if (isHeaderViewPos(position)) {
@@ -120,6 +124,9 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (errorViewBinder != null && errorViewBinder.showNow) {
+            return mAdapter.onCreateViewHolder(parent, viewType);
+        }
         if (mAdapter.getDisplayList().size() == 0)
             return mAdapter.onCreateViewHolder(parent, viewType);
         Context context = parent.getContext();
@@ -135,6 +142,10 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (errorViewBinder != null && errorViewBinder.showNow) {
+            mAdapter.onBindViewHolder(holder, position);
+            return;
+        }
         if (mAdapter.getDisplayList().size() == 0) {
             mAdapter.onBindViewHolder(holder, position);
             return;
@@ -153,6 +164,8 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
 
     @Override
     public int getItemCount() {
+        if (errorViewBinder != null && errorViewBinder.showNow)
+            return mAdapter.getItemCount();
         if (mAdapter.getDisplayList().size() == 0)
             return mAdapter.getItemCount();
         return mAdapter.getItemCount() + getHeadersCount() + getFootersCount();
@@ -178,6 +191,22 @@ public class HeaderAndFooterAdapterWrapper extends RecyclerViewAdapter implement
     @Override
     public void setEmptyViewBinder(ViewBinder emptyViewBinder) {
         mAdapter.setEmptyViewBinder(emptyViewBinder);
+    }
+
+    @Override
+    public void setErrorViewBinder(ErrorViewBinder errorViewBinder) {
+        mAdapter.setErrorViewBinder(errorViewBinder);
+        this.errorViewBinder = mAdapter.errorViewBinder;
+    }
+
+    @Override
+    public void showErrorView(RecyclerView recyclerView) {
+        mAdapter.showErrorView(recyclerView);
+    }
+
+    @Override
+    public void hideErrorView(RecyclerView recyclerView) {
+        mAdapter.hideErrorView(recyclerView);
     }
 
     @Override

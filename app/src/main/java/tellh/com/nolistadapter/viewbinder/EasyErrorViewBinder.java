@@ -8,16 +8,16 @@ import tellh.com.nolistadapter.adapter.IListAdapter;
 /**
  * Created by tlh on 2016/9/13 :)
  */
-public class EasyEmptyViewBinder extends EmptyViewBinder<ViewBinder.ViewHolder> {
+public class EasyErrorViewBinder extends ErrorViewBinder<ViewBinder.ViewHolder> {
     @LayoutRes
     int layoutId;
 
-    public EasyEmptyViewBinder(@LayoutRes int layoutId) {
+    public EasyErrorViewBinder(@LayoutRes int layoutId) {
         this.layoutId = layoutId;
     }
 
     @Override
-    protected void bindEmptyView(IListAdapter adapter, ViewHolder holder, int position) {
+    protected void bindErrorView(IListAdapter adapter, ViewHolder holder, int position) {
     }
 
     @Override
