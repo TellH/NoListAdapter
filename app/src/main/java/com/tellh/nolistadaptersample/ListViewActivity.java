@@ -10,17 +10,16 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.tellh.nolistadapter.DataBean;
 import com.tellh.nolistadapter.ListViewAdapter;
+import com.tellh.nolistadaptersample.bean.ImageItem;
+import com.tellh.nolistadaptersample.bean.Response;
+import com.tellh.nolistadaptersample.bean.User;
+import com.tellh.nolistadaptersample.lv.ImageItemListViewBinder;
+import com.tellh.nolistadaptersample.lv.UserListViewBinder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tellh.com.nolistadapter.R;
-
-import com.tellh.nolistadaptersample.bean.ImageItem;
-import com.tellh.nolistadaptersample.bean.Response;
-import com.tellh.nolistadaptersample.bean.User;
-import tellh.com.nolistadapter.viewbinder.lv.ImageItemListViewBinder;
-import tellh.com.nolistadapter.viewbinder.lv.UserListViewBinder;
 
 public class ListViewActivity extends AppCompatActivity {
 

@@ -16,6 +16,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url "https://dl.bintray.com/tellh/maven/" }
     }
 }
 
@@ -27,7 +28,7 @@ ext {
     userOrg = 'tellh'
     groupId = 'com.tellh'
     uploadName = 'NoListAdapter'
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.2'
     desc = 'A more elegant and easy way to build an multifunctional adapter for ListView or RecyclerView in Android.'
     website = 'https://github.com/TellH/NoListAdapter'
     licences = ['Apache-2.0']

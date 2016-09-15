@@ -1,11 +1,11 @@
-package tellh.com.nolistadapter.viewbinder.utils;
+package com.tellh.nolistadapter.viewbinder.utils;
 
 import android.support.annotation.LayoutRes;
 import android.view.View;
 
 import com.tellh.nolistadapter.IListAdapter;
-import tellh.com.nolistadapter.viewbinder.base.RecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.sub.ErrorRecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.base.RecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.sub.ErrorRecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/13 :)

@@ -1,4 +1,4 @@
-package tellh.com.nolistadapter.adapter;
+package com.tellh.nolistadapter.adapter;
 
 import android.content.Context;
 import android.support.v4.util.SparseArrayCompat;
@@ -8,13 +8,14 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.tellh.nolistadapter.DataBean;
+import com.tellh.nolistadapter.IListAdapter;
+import com.tellh.nolistadapter.viewbinder.base.RecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.sub.ErrorRecyclerViewBinder;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tellh.nolistadapter.IListAdapter;
-import tellh.com.nolistadapter.viewbinder.base.RecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.sub.ErrorRecyclerViewBinder;
-import com.tellh.nolistadapter.DataBean;
 
 /**
  * Created by tlh on 2016/8/4.

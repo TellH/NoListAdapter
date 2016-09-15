@@ -1,4 +1,4 @@
-package tellh.com.nolistadapter.viewbinder.base;
+package com.tellh.nolistadapter.viewbinder.base;
 
 import android.support.annotation.IdRes;
 import android.support.v7.widget.RecyclerView;

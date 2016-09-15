@@ -1,4 +1,4 @@
-package tellh.com.nolistadapter.adapter;
+package com.tellh.nolistadapter.adapter;
 
 import android.support.v7.widget.RecyclerView;
 

@@ -10,28 +10,27 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.tellh.nolistadapter.DataBean;
+import com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper;
+import com.tellh.nolistadapter.adapter.RecyclerViewAdapter;
+import com.tellh.nolistadapter.viewbinder.utils.EasyEmptyRecyclerViewBinder;
+import com.tellh.nolistadaptersample.bean.ImageItem;
+import com.tellh.nolistadaptersample.bean.Response;
+import com.tellh.nolistadaptersample.bean.User;
+import com.tellh.nolistadaptersample.rv.ControlerRecyclerViewBinder;
+import com.tellh.nolistadaptersample.rv.ErrorBinder;
+import com.tellh.nolistadaptersample.rv.FooterBinder;
+import com.tellh.nolistadaptersample.rv.HeaderBinder;
+import com.tellh.nolistadaptersample.rv.ImageItemRecyclerViewBinder;
+import com.tellh.nolistadaptersample.rv.LoadMoreFooterBinderRecycler;
+import com.tellh.nolistadaptersample.rv.UserRecyclerViewBinder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tellh.com.nolistadapter.R;
 
-import com.tellh.nolistadaptersample.bean.ImageItem;
-import com.tellh.nolistadaptersample.bean.Response;
-import com.tellh.nolistadaptersample.bean.User;
-import tellh.com.nolistadapter.viewbinder.rv.ControlerRecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.rv.ErrorBinder;
-import tellh.com.nolistadapter.viewbinder.rv.FooterBinder;
-import tellh.com.nolistadapter.viewbinder.rv.HeaderBinder;
-import tellh.com.nolistadapter.viewbinder.rv.ImageItemRecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.rv.LoadMoreFooterBinderRecycler;
-import tellh.com.nolistadapter.viewbinder.rv.UserRecyclerViewBinder;
-import tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper;
-import tellh.com.nolistadapter.adapter.RecyclerViewAdapter;
-import tellh.com.nolistadapter.viewbinder.utils.EasyEmptyRecyclerViewBinder;
-
-import static tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE;
-import static tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.UpdateType.REFRESH;
+import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE;
+import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.UpdateType.REFRESH;
 
 public class RecyclerViewActivity extends AppCompatActivity implements FooterLoadMoreAdapterWrapper.OnReachFooterListener, ErrorBinder.OnReLoadCallback {
 

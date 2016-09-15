@@ -1,4 +1,4 @@
-package tellh.com.nolistadapter.adapter;
+package com.tellh.nolistadapter.adapter;
 
 import android.support.annotation.LayoutRes;
 import android.support.v4.util.SparseArrayCompat;
@@ -7,17 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tellh.nolistadapter.DataBean;
+import com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.OnReachFooterListener;
+import com.tellh.nolistadapter.viewbinder.base.RecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.sub.EmptyRecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.sub.ErrorRecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.sub.FooterRecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.sub.HeaderRecyclerViewBinder;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.OnReachFooterListener;
-import tellh.com.nolistadapter.viewbinder.base.RecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.sub.EmptyRecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.sub.ErrorRecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.sub.FooterRecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.sub.HeaderRecyclerViewBinder;
-import com.tellh.nolistadapter.DataBean;
 
 /**
  * Created by tlh on 2016/9/12 :)

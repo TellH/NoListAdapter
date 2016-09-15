@@ -1,4 +1,4 @@
-package tellh.com.nolistadapter.adapter;
+package com.tellh.nolistadapter.adapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by tlh on 2016/2/18.
+ *
  */
 public class FooterLoadMoreAdapterWrapper extends HeaderAndFooterAdapterWrapper {
     private int curPage = 1;

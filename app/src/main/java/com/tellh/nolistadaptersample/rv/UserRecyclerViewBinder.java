@@ -1,12 +1,13 @@
-package tellh.com.nolistadapter.viewbinder.rv;
+package com.tellh.nolistadaptersample.rv;
 
 import android.view.View;
 import android.widget.TextView;
 
-import tellh.com.nolistadapter.R;
-import com.tellh.nolistadaptersample.bean.User;
 import com.tellh.nolistadapter.IListAdapter;
-import tellh.com.nolistadapter.viewbinder.base.RecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.base.RecyclerViewBinder;
+import com.tellh.nolistadaptersample.bean.User;
+
+import tellh.com.nolistadapter.R;
 
 /**
  * Created by tlh on 2016/9/12 :)

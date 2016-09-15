@@ -1,15 +1,16 @@
-package tellh.com.nolistadapter.viewbinder.rv;
+package com.tellh.nolistadaptersample.rv;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import tellh.com.nolistadapter.R;
-import tellh.com.nolistadapter.adapter.FooterLoadMoreAdapterWrapper;
 import com.tellh.nolistadapter.IListAdapter;
-import tellh.com.nolistadapter.viewbinder.base.RecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.sub.FooterRecyclerViewBinder;
+import com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper;
+import com.tellh.nolistadapter.viewbinder.base.RecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.sub.FooterRecyclerViewBinder;
+
+import tellh.com.nolistadapter.R;
 
 /**
  * Created by tlh on 2016/9/13 :)

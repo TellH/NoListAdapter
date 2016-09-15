@@ -1,8 +1,8 @@
-package tellh.com.nolistadapter.viewbinder.sub;
+package com.tellh.nolistadapter.viewbinder.sub;
 
 import com.tellh.nolistadapter.IListAdapter;
-import tellh.com.nolistadapter.viewbinder.base.RecyclerViewBinder;
 import com.tellh.nolistadapter.IViewBinderProvider;
+import com.tellh.nolistadapter.viewbinder.base.RecyclerViewBinder;
 
 /**
  * Created by tlh on 2016/9/13 :)

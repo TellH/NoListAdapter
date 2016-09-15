@@ -1,12 +1,13 @@
-package tellh.com.nolistadapter.viewbinder.rv;
+package com.tellh.nolistadaptersample.rv;
 
 import android.view.View;
 import android.widget.Button;
 
-import tellh.com.nolistadapter.R;
 import com.tellh.nolistadapter.IListAdapter;
-import tellh.com.nolistadapter.viewbinder.base.RecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.sub.ErrorRecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.base.RecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.sub.ErrorRecyclerViewBinder;
+
+import tellh.com.nolistadapter.R;
 
 /**
  * Created by tlh on 2016/9/14 :)

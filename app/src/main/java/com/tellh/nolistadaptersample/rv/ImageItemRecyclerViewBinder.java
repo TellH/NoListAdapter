@@ -1,14 +1,14 @@
-package tellh.com.nolistadapter.viewbinder.rv;
+package com.tellh.nolistadaptersample.rv;
 
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.tellh.nolistadapter.IListAdapter;
+import com.tellh.nolistadapter.viewbinder.utils.EasyRecyclerViewBinder;
+import com.tellh.nolistadapter.viewbinder.utils.EasyRecyclerViewHolder;
+import com.tellh.nolistadaptersample.bean.ImageItem;
 
 import tellh.com.nolistadapter.R;
-import com.tellh.nolistadaptersample.bean.ImageItem;
-import com.tellh.nolistadapter.IListAdapter;
-import tellh.com.nolistadapter.viewbinder.utils.EasyRecyclerViewBinder;
-import tellh.com.nolistadapter.viewbinder.utils.EasyRecyclerViewHolder;
 
 /**
  * Created by tlh on 2016/9/12 :)
