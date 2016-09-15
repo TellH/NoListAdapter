@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.tellh'
 apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 24
@@ -32,4 +34,12 @@ publish {
     desc = rootProject.description
     website = rootProject.website
     licences = rootProject.licences
+}
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
 }
