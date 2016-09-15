@@ -216,9 +216,11 @@ When getting Refresh or Load More data, just call FooterLoadMoreAdapterWrapper#O
 
 ## How it works?
 No mater in ListView or RecyclerView, the adapter is in charge of providing view holder and binding data to each item view. Furthermore, different type items with different layout ids should have different data beans and  different ways for databinding. So it would be more fixable and elegant to separate business code of binding data and providing view holder from the adapter. Instead, ViewBinder will handle those task.
+
 ![](https://raw.githubusercontent.com/TellH/NoListAdapter/master/raw/principle.png)
 
 DataBean holds the data and an item layout id. With layout id, it provides ViewBinder to bind data to item view in Adapter's method such as onBindViewHolder in RecyclerView and getView in ListView.
+
 ![Alt text](https://raw.githubusercontent.com/TellH/NoListAdapter/master/raw/databean.png)
 
 ## License
