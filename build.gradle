@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
 
+        classpath 'com.novoda:bintray-release:0.3.4'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -20,4 +21,14 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+ext {
+    //upload library setting
+    userOrg = 'tellh'
+    groupId = 'com.tellh'
+    uploadName = 'NoListAdapter'
+    publishVersion = '1.0.0'
+    desc = 'A more elegant and easy way to build an multifunctional adapter for ListView or RecyclerView in Android.'
+    website = 'https://github.com/TellH/NoListAdapter'
+    licences = ['Apache-2.0']
 }
