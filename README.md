@@ -32,7 +32,7 @@ dependencies {
 }
 ```
 ### Quick Start
-1. Make your data entity class extends DataBean and attach item layout id to it. like:
+1 . Make your data entity class extends DataBean and attach item layout id to it. like:
 ```
 public class User extends DataBean {
     private String login;
@@ -46,7 +46,7 @@ public class User extends DataBean {
     //...
 }
 ```
-2. Create ViewBinder and VIewHolder for an item type. 
+2 . Create ViewBinder and VIewHolder for an item type. 
 i.e. for RecyclerView
 ```
 public class UserRecyclerViewBinder extends RecyclerViewBinder<User, UserRecyclerViewBinder.ViewHolder> {
@@ -84,7 +84,7 @@ public class UserRecyclerViewBinder extends RecyclerViewBinder<User, UserRecycle
 ### 
 [Creatre ViewBinder sample for ListView](https://github.com/TellH/NoListAdapter/blob/master/app/src/main/java/com/tellh/nolistadaptersample/lv/UserListViewBinder.java)
 
-3. Build an Adapter.
+3 . Build an Adapter.
  i.e. for RecyclerView
 ```
         List<User> userList = response.getItems();
