@@ -15,7 +15,7 @@ Using this library, you don't even have to write an adapter for a ListView or Re
 ## How to do?
 ### SetUp
 In project build.gradle
-```
+``` groovy
 allprojects {
     repositories {
         maven { url "https://jitpack.io" }
@@ -23,7 +23,7 @@ allprojects {
 }
 ```
 In app module build.gradle
-```
+``` groovy
 dependencies {
 	//if you want to use in listview, add this line.
     compile 'com.github.TellH.NoListAdapter:nolistadapter-lv:1.0.2'
@@ -33,7 +33,7 @@ dependencies {
 ```
 ### Quick Start
 1 . Make your data entity class extends DataBean and attach item layout id to it. like:
-```
+``` java
 public class User extends DataBean {
     private String login;
     private int id;
@@ -48,7 +48,7 @@ public class User extends DataBean {
 ```
 2 . Create ViewBinder and VIewHolder for an item type. 
 i.e. for RecyclerView
-```
+``` java
 public class UserRecyclerViewBinder extends RecyclerViewBinder<User, UserRecyclerViewBinder.ViewHolder> {
     @Override
     public ViewHolder provideViewHolder(View itemView) {
@@ -86,7 +86,7 @@ public class UserRecyclerViewBinder extends RecyclerViewBinder<User, UserRecycle
 
 3 . Build an Adapter.
  i.e. for RecyclerView
-```
+``` java
         List<User> userList = response.getItems();
         adapter = RecyclerViewAdapter.builder()
                 .displayList(userList)
@@ -98,7 +98,7 @@ public class UserRecyclerViewBinder extends RecyclerViewBinder<User, UserRecycle
 
 ### Multi-Type Item
 Just Create DataBean and ViewBinder for each Item type and add it to your Adapter Builder.
-```
+``` java
         List<User> userList = response.getItems();
         List<DataBean> displayList = new ArrayList<>();
         for (int i = 0; i < userList.size(); i++) {
@@ -113,13 +113,13 @@ Just Create DataBean and ViewBinder for each Item type and add it to your Adapte
 ```
 ### Empty View, Header and Footer
 Create ViewBinder
-```
+``` java
 public class EmptyBinder extends EmptyRecyclerViewBinder<EmptyBinder.ViewHolder>
 public class HeaderBinder extends HeaderRecyclerViewBinder<HeaderBinder.ViewHolder>
 public class FooterBinder extends FooterRecyclerViewBinder<FooterBinder.ViewHolder>
 ```
 Add it to your Adapter Builder
-```
+``` java
 adapter = RecyclerViewAdapter.builder()
 				      //...
                 .setEmptyView(new EmptyBinder())
@@ -131,21 +131,21 @@ adapter = RecyclerViewAdapter.builder()
                 .build();
 ```
 If you just want to show Empty View, use EasyEmptyRecyclerViewBinder
-```
+``` java
 .setEmptyView(new EasyEmptyRecyclerViewBinder(R.layout.empty_view))
 ```
 ![](https://raw.githubusercontent.com/TellH/NoListAdapter/master/raw/empty_view.gif)
 ### Error View
 Create ViewBinder
-```
+``` java
 public class ErrorBinder extends ErrorRecyclerViewBinder<ErrorBinder.ViewHolder>
 ```
 Add it to your Adapter Builder
-```
+``` java
 .setErrorView(new ErrorBinder(this))
 ```
 Then show and hide Error View if you want.
-```
+``` java
 adapter.showErrorView(recyclerView);
 adapter.hideErrorView(recyclerView);
 ```
@@ -154,7 +154,7 @@ adapter.hideErrorView(recyclerView);
 
 ### Load More Footer
 Create Footer ViewBinder, Check out more information in this [sample](https://github.com/TellH/NoListAdapter/blob/master/app/src/main/java/com/tellh/nolistadaptersample/rv/LoadMoreFooterBinderRecycler.java).
-```
+``` java
 public class LoadMoreFooterBinderRecycler extends FooterRecyclerViewBinder<LoadMoreFooterBinderRecycler.ViewHolder> {
     @Override
     protected void bindFooter(IListAdapter adapter, ViewHolder holder, int position) {
@@ -184,7 +184,7 @@ public class LoadMoreFooterBinderRecycler extends FooterRecyclerViewBinder<LoadM
 }
 ```
 Add it to your Adapter Builder:
-```
+``` java
         adapter = RecyclerViewAdapter.builder()
                 .addHeader(new HeaderBinder("I am the first header! 我是沙发"))
                 .addFooter(new FooterBinder("------I am the footer!------"))
@@ -199,7 +199,7 @@ Add it to your Adapter Builder:
 Note: setLoadMoreFooter should be added behind addHeader and addFooter.
 
 When getting Refresh or Load More data, just call FooterLoadMoreAdapterWrapper#OnGetData, it will handle pagination for you.
-```
+``` java
     public void onGetRefreshData() {
         FooterLoadMoreAdapterWrapper footerLoadMoreAdapterWrapper = (FooterLoadMoreAdapterWrapper) adapter;
         footerLoadMoreAdapterWrapper.OnGetData(displayList, REFRESH);
