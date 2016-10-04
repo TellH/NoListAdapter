@@ -29,8 +29,8 @@ import java.util.List;
 
 import tellh.com.nolistadapter.R;
 
-import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.UpdateType.LOAD_MORE;
-import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.UpdateType.REFRESH;
+import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.LOAD_MORE;
+import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.REFRESH;
 
 public class RecyclerViewActivity extends AppCompatActivity implements FooterLoadMoreAdapterWrapper.OnReachFooterListener, ErrorBinder.OnReLoadCallback {
 

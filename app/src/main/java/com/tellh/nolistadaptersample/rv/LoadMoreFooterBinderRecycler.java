@@ -12,6 +12,10 @@ import com.tellh.nolistadapter.viewbinder.sub.FooterRecyclerViewBinder;
 
 import tellh.com.nolistadapter.R;
 
+import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.LOADING;
+import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.NO_MORE;
+import static com.tellh.nolistadapter.adapter.FooterLoadMoreAdapterWrapper.PULL_TO_LOAD_MORE;
+
 /**
  * Created by tlh on 2016/9/13 :)
  */
@@ -23,9 +27,15 @@ public class LoadMoreFooterBinderRecycler extends FooterRecyclerViewBinder<LoadM
     @Override
     protected void bindFooter(IListAdapter adapter, ViewHolder holder, int position) {
         FooterLoadMoreAdapterWrapper adapterWrapper = (FooterLoadMoreAdapterWrapper) adapter;
-        if (adapter.getDisplayList().size() == 0) {
+        int size = adapter.getDisplayList().size();
+        if (size == 0) {
             holder.progressBar.setVisibility(View.INVISIBLE);
             holder.tvFooter.setText("No Data");
+            return;
+        }
+        if (size < 10) {
+            holder.tvFooter.setText(noMoreText);
+            holder.progressBar.setVisibility(View.INVISIBLE);
             return;
         }
         switch (adapterWrapper.getFooterStatus()) {

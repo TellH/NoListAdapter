@@ -1,8 +1,11 @@
 package com.tellh.nolistadapter.adapter;
 
+import android.support.annotation.IntDef;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 /**
@@ -10,21 +13,30 @@ import java.util.List;
  *
  */
 public class FooterLoadMoreAdapterWrapper extends HeaderAndFooterAdapterWrapper {
-    private int curPage = 1;
+    private int curPage;
+    //UpdateType
+    public static final int REFRESH = 401;
+    public static final int LOAD_MORE = 140;
 
-    public enum UpdateType {
-        REFRESH, LOAD_MORE
+    public static final int PULL_TO_LOAD_MORE = 501;
+    public static final int LOADING = 323;
+    public static final int NO_MORE = 313;
+
+    @IntDef({REFRESH, LOAD_MORE})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface UpdateType {
     }
 
-    public enum FooterState {
-        PULL_TO_LOAD_MORE,
-        LOADING,
-        NO_MORE,
+    @IntDef({PULL_TO_LOAD_MORE, LOADING, NO_MORE})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface FooterState {
     }
 
-    private FooterState mFooterStatus = FooterState.PULL_TO_LOAD_MORE;
+    @FooterState
+    private int mFooterStatus = PULL_TO_LOAD_MORE;
 
-    public FooterState getFooterStatus() {
+    @FooterState
+    public int getFooterStatus() {
         return mFooterStatus;
     }
 
@@ -42,16 +54,17 @@ public class FooterLoadMoreAdapterWrapper extends HeaderAndFooterAdapterWrapper 
                 super.onScrollStateChanged(recyclerView, newState);
                 if (!isReachBottom(recyclerView, newState) || getDisplayList().size() == 0 || (errorViewBinder != null && errorViewBinder.showNow))
                     return;
-                if (mFooterStatus != FooterState.LOADING
-                        && mFooterStatus != FooterState.NO_MORE) {
-                    setFooterStatus(FooterState.LOADING);
+                if (mFooterStatus != LOADING
+                        && mFooterStatus != NO_MORE) {
+                    setFooterStatus(LOADING);
                     listener.onToLoadMore(curPage);
                 }
             }
         });
     }
 
-    public void setFooterStatus(FooterState status) {
+
+    public void setFooterStatus(@FooterState int status) {
         mFooterStatus = status;
         notifyDataSetChanged();
     }
@@ -65,19 +78,19 @@ public class FooterLoadMoreAdapterWrapper extends HeaderAndFooterAdapterWrapper 
         void onToLoadMore(int curPage);
     }
 
-    public void OnGetData(List data, UpdateType updateType) {
-        if (updateType == UpdateType.REFRESH) {
+    public void OnGetData(List data, @UpdateType int updateType) {
+        if (updateType == REFRESH) {
             refresh(data);
             curPage = 1;
-            setFooterStatus(FooterLoadMoreAdapterWrapper.FooterState.PULL_TO_LOAD_MORE);
+            setFooterStatus(PULL_TO_LOAD_MORE);
         } else {
             if (data.isEmpty()) {
-                setFooterStatus(FooterLoadMoreAdapterWrapper.FooterState.NO_MORE);
+                setFooterStatus(NO_MORE);
                 return;
             }
             addAll(data);
             curPage++;
-            setFooterStatus(FooterLoadMoreAdapterWrapper.FooterState.PULL_TO_LOAD_MORE);
+            setFooterStatus(PULL_TO_LOAD_MORE);
         }
     }
 
