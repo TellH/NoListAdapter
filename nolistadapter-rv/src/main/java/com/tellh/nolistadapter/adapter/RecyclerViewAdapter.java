@@ -171,9 +171,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         recyclerView.scrollToPosition(0);
     }
 
+    public boolean isErrorViewShowing() {
+        return errorViewBinder != null && errorViewBinder.showNow;
+    }
+
     @Override
     public void showErrorView(RecyclerView recyclerView) {
-        if (errorViewBinder == null)
+        if (errorViewBinder == null || isErrorViewShowing())
             return;
         errorViewBinder.showNow = true;
         notifyDataSetChanged();
@@ -182,7 +186,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void hideErrorView(RecyclerView recyclerView) {
-        if (errorViewBinder == null)
+        if (errorViewBinder == null && !isErrorViewShowing())
             return;
         errorViewBinder.showNow = false;
         notifyDataSetChanged();
